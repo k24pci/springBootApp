@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+/**
+ * Entity represents a DB table
+ * An instance of entity represents a table row
+ */
 @Entity
 @Getter
 @Setter

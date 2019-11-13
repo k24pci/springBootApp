@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is annotated with @RestController which provides RestServices to the outer world (smart phone, javascript app, or some other devices)
+ * It communicates with Domain Services to perform a specific task and return response in JSON format
+ */
 @RestController
 @RequestMapping("companies")
 public class CompanyController {
