@@ -25,7 +25,7 @@ public class EmployeeController {
         Map<String, Integer> result = new HashMap<>();
         Company foundCompany = companyService.findById(id);
         Integer employeeId = employeeService.create(employee,foundCompany);
-        result.put("Id", employeeId);
+        result.put("id", employeeId);
         return result;
     }
 }

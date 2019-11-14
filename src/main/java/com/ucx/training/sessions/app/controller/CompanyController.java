@@ -27,7 +27,7 @@ public class CompanyController {
     public Map<String, Integer> create(@RequestBody Company company) {
         Map<String, Integer> map = new HashMap<>();
         Integer id = companyService.create(company);
-        map.put("Id: ", id);
+        map.put("id", id);
         return map;
     }
 }
