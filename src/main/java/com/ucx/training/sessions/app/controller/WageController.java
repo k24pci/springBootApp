@@ -21,10 +21,10 @@ public class WageController {
     public ResponseEntity<Void> calculateWages(@RequestParam("csvFile") MultipartFile csvFile, @PathVariable Integer id){
         try {
             wageProcessor.calculateWages(csvFile.getInputStream());
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }catch (Exception ex){
             log.error(ex.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
