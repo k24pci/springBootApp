@@ -38,10 +38,11 @@ public class CompanyServiceTests {
         assertNotNull(id);
         Company foundCompany = companyService.findById(id);
         assertEquals(id, foundCompany.getId());
-        deleteMockData();
+        deleteMockData(id);
     }
 
-    private void deleteMockData(){
-        companyRepository.deleteAll();
+    private void deleteMockData(Integer id){
+        Company company = companyRepository.findById(id).get();
+        companyRepository.delete(company);
     }
 }

@@ -42,15 +42,17 @@ public class CompanyControllerTests {
     public void testCreateCompany(){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Company company = MockData.getCompanies().get(1);
         HttpEntity<Company> entity = new HttpEntity<>(company, httpHeaders);
         Map<String, Integer> result = testRestTemplate.exchange("/companies", HttpMethod.POST, entity, Map.class).getBody();
         assertNotNull(result);
         assertNotNull(result.get("id"));
-        removeMockData();
+        removeMockData(result.get("id"));
     }
 
-    private void removeMockData(){
-        companyRepository.deleteAll();
+    private void removeMockData(Integer id){
+      Company company = companyRepository.findById(id).get();
+      companyRepository.delete(company);
     }
 }

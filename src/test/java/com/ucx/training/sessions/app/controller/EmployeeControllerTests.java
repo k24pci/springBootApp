@@ -61,12 +61,11 @@ public class EmployeeControllerTests {
                 .postForEntity("/companies/{id}/employees", employee, Map.class, pathVars).getBody();
         assertNotNull(result);
         assertNotNull(result.get("id"));
-        removeTestData();
+        removeTestData(id);
     }
 
-    private void removeTestData(){
-        addressRepository.deleteAll();
-        employeeRepository.deleteAll();
-        companyRepository.deleteAll();
+    private void removeTestData(Integer id){
+        Company company = companyRepository.findById(id).get();
+        companyRepository.delete(company);
     }
 }
