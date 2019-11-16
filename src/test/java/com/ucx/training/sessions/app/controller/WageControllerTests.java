@@ -69,7 +69,7 @@ public class WageControllerTests {
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(params, httpHeaders);
 
         ResponseEntity responseEntity = testRestTemplate
-                .exchange("/companies/{id}/employees/wages", HttpMethod.POST, httpEntity,ResponseEntity.class, companyId).getBody();
+                .exchange("/companies/{id}/employees/wages", HttpMethod.POST, httpEntity,ResponseEntity.class, companyId);
 
         assertThat(responseEntity.getStatusCode(),is(HttpStatus.OK));
         removeTestData(companyId);
