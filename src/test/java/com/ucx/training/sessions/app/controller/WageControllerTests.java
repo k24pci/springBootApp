@@ -1,6 +1,7 @@
 package com.ucx.training.sessions.app.controller;
 
 
+import com.ucx.training.sessions.app.BaseControllerTest;
 import com.ucx.training.sessions.app.MockData;
 import com.ucx.training.sessions.app.entity.Company;
 import com.ucx.training.sessions.app.entity.Employee;
@@ -9,14 +10,10 @@ import com.ucx.training.sessions.app.repository.WageRepository;
 import com.ucx.training.sessions.app.service.CompanyService;
 import com.ucx.training.sessions.app.service.EmployeeService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -26,18 +23,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-/* If you are using JUnit 4, add @RunWith(SpringRunner.class), otherwise annotations will be ignored
- *
- */
-@RunWith(SpringRunner.class)
-/* With the @SpringBootTest annotation, Spring Boot provides a convenient way to start up an application context
- * to be used in a test.
- * By default, @SpringBootTest will not start a server. You can use the webEnvironment attribute of @SpringBootTest to further refine how your tests run
- * RANDOM_PORT: Loads a WebServerApplicationContext and provides a real web environment. Embedded servers are started and listen on a random port.
- */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class WageControllerTests {
+
+public class WageControllerTests extends BaseControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -68,8 +55,8 @@ public class WageControllerTests {
 
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(params, httpHeaders);
 
-        ResponseEntity responseEntity = testRestTemplate
-                .exchange("/companies/{id}/employees/wages", HttpMethod.POST, httpEntity,ResponseEntity.class, companyId);
+        ResponseEntity<Void> responseEntity = testRestTemplate
+                .exchange("/companies/{id}/employees/wages", HttpMethod.POST, httpEntity,Void.class, companyId);
 
         assertThat(responseEntity.getStatusCode(),is(HttpStatus.OK));
         removeTestData(companyId);
